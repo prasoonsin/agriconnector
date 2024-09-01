@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="logo">
+                <img src="" alt="logo">
+                <h1>Agri Connector</h1>
+                <h2>Your Carts</h2>
+            </div>
+
+        </div>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="item.html">Items</a></li>
+                <li><a href="upload.html">Upload</a></li>
+                <li><a href="chat.html">Chat</a></li>
+                <li><a href="feature.html">Features</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="cart-items">
+       
+    </div>
+    <script>
+       
+        function loadCartItems() {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const cartContainer = document.querySelector('.cart-items');
+
+            if (cartItems.length === 0) {
+                cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+                return;
+            }
+
+            cartItems.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <h2>${item.name}</h2>
+                    <p>${item.price}</p>
+                    <button class="remove-btn">Remove</button>
+                `;
+                cartContainer.appendChild(itemElement);
+
+                
+                itemElement.querySelector('.remove-btn').addEventListener('click', () => {
+                    removeItemFromCart(item.name);
+                });
+            });
+        }
+
+        function removeItemFromCart(productName) {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems = cartItems.filter(item => item.name !== productName);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            location.reload();
+        }
+        window.onload = loadCartItems;
+    </script>
+</body>
+</html>

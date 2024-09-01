@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Agri Connector</title>
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <h1>Agri Connector</h1>
+        </div>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="item.html">Items</a></li>
+                <li><a href="upload.html">Upload</a></li>
+                <li><a href="chat.html">chat</a></li>
+                <li><a href="feature.html">Features</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+</header>
+<div class="connect-container">
+    <label for="farmer-id">Farmer ID:</label>
+    <input type="text" id="farmer-id" name="farmer-id" placeholder="Enter Farmer ID">
+
+    <label for="buyer-id">Buyer's ID:</label>
+    <input type="text" id="buyer-id" name="buyer-id" placeholder="Enter Buyer's ID">
+
+    <button type="submit" class="connect-button">Connect</button>
+</div>
+
+<main class="chat">
+    <h2>Chat with Buyers and Sellers</h2>
+    <div class="chat-container">
+        <div class="chat-box">
+            <div class="chat-messages" id="chatMessages"></div>
+            <form id="chatForm">
+                <input type="text" id="message" placeholder="Type your message..." required>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <p>&copy; 2024 Agri Connector. All rights reserved.</p>
+</footer>
+
+<script>
+    const chatForm = document.getElementById('chatForm');
+    const chatMessages = document.getElementById('chatMessages');
+
+    chatForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const message = document.getElementById('message').value;
+
+       
+        chatMessages.innerHTML += `<div class="chat-message"><p>${message}</p></div>`;
+        chatForm.reset();
+    });
+
+
+    async function loadMessages() {
+       
+        const messages = [
+            { text: 'Hello, I am interested in your product!' },
+            { text: 'Great! Let me know if you have any questions.' }
+        ];
+
+        messages.forEach(msg => {
+            chatMessages.innerHTML += `<div class="chat-message"><p>${msg.text}</p></div>`;
+        });
+    }
+
+    window.onload = loadMessages;
+</script>
+
+</body>
+</html>

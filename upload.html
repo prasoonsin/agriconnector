@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Products - Agri Connector</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="upload.css">
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <h1>Agri Connector</h1>
+        </div>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="item.html">Items</a></li>
+                <li><a href="upload.html">Upload</a></li>
+                <li><a href="chat.html">chat</a></li>
+                <li><a href="feature.html">Features</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+
+    <main class="upload">
+        <h2>Upload Your Product</h2>
+        <form id="uploadForm">
+            <input type="text" id="productName" placeholder="Product Name" required>
+            <textarea id="description" placeholder="Product Description" required></textarea>
+            <input type="number" id="price" placeholder="Price" required>
+            <div class="uploadvideo" id="img-icon">
+                <div class="icon">
+                    <input type="text" id="imageUrl" placeholder="Image URL" required>
+                    <i class="fa-solid fa-video"></i>
+                    <!-- <input type="text" id="imageUrl" placeholder="Image URL" required> -->
+                </div>
+            </div>
+            <!-- <input type="text" id="imageUrl" placeholder="Image URL" required> -->
+            <!-- <div class="icon">
+            <div class="uploadvideo">
+                
+               
+                    <input type="text" id="imageUrl" placeholder="Image URL" required>
+                    <i class="fa-solid fa-video"></i></div>
+            </div> -->
+            <button type="submit">Upload</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Agri Connector. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const productName = document.getElementById('productName').value;
+            const description = document.getElementById('description').value;
+            const price = document.getElementById('price').value;
+            const imageUrl = document.getElementById('imageUrl').value;
+
+            const response = await fetch('http://localhost:3000/products', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productName, description, price, imageUrl })
+            });
+            const data = await response.json();
+            alert('Product uploaded successfully!');
+            document.getElementById('uploadForm').reset();
+        });
+    </script>
+    
+</body>
+</html>
